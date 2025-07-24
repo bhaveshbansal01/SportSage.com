@@ -29,15 +29,26 @@ cloudinary.config({
 });
 
 // Aiven MySQL connection
-let dbConfig = process.env.AIVEN_MYSQL_URL
-let mySqlVen = mysql2.createPool(dbConfig);
-console.log("AiVen Connected!");
+//let dbConfig = process.env.AIVEN_MYSQL_URL
+//let mySqlVen = mysql2.createPool(dbConfig);
+//console.log("AiVen Connected!");
 // mySqlVen.connect(function (errKuch) {
 //   if (errKuch == null)
 //     console.log("AiVen Connected!");
 //   else
 //     console.log(errKuch.message);
 // });
+const mysql2 = require('mysql2');
+const dbConfig = new URL(process.env.AIVEN_MYSQL_URL);
+
+const mySqlVen = mysql2.createPool({
+  host: dbConfig.hostname,
+  user: dbConfig.username,
+  password: dbConfig.password,
+  database: dbConfig.pathname.replace('/', ''),
+  port: dbConfig.port || 2004,
+});
+
 
 // Home page route
 app.get("/", function (req, resp) {
