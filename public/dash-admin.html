@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f0f0f0;
+    }
+
+    .dashboard-title {
+      text-align: center;
+      margin: 30px 0;
+      font-weight: bold;
+    }
+
+    .card-custom {
+      width: 18rem;
+      margin: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card-custom img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      padding: 20px;
+    }
+
+    .btn-custom {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-custom:hover {
+      background-color: #c82333;
+    }
+
+    /* 🎯 Hover Animations */
+    .card-custom:hover {
+      transform: scale(1.05);
+    }
+
+    .card-container:hover .card-custom {
+      opacity: 0.5;
+    }
+
+    .card-container .card-custom:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<script>
+function dologout(){ 
+  localStorage.removeItem("activeUser");
+  location.href="index.html";
+}
+</script>
+<body>
+  <div class="container">
+    <h2 class="dashboard-title">Admin Dashboard</h2>
+
+    <div class="d-flex justify-content-center flex-wrap card-container">
+      <!-- USERS -->
+      <div class="card card-custom text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Manage Users">
+        <div class="card-body">
+          <h5 class="card-title">USERS CONSOLE</h5>
+          <p class="card-text">View and control user accounts</p>
+          <a href="users-manager.html" class="btn btn-custom">Open</a>
+        </div>
+      </div>
+
+      <!-- PLAYERS -->
+      <div class="card card-custom text-center">
+        <img src="/picssssss/player admin photo.jpg" alt="Manage Tournaments">
+        <div class="card-body">
+          <h5 class="card-title">PLAYERS</h5>
+          <p class="card-text">FETCH PLAYERS</p>
+          <a href="player-finder.html" class="btn btn-custom">Open</a>
+        </div>
+      </div>
+
+      <!-- ORGANIZERS -->
+      <div class="card card-custom text-center">
+        <img src="/picssssss/organizer admin photo.webp" alt="Logout">
+        <div class="card-body">
+          <h5 class="card-title">ORGANIZERS</h5>
+          <p class="card-text">GET ALL ORGANIZERS</p>
+          <a href="organizer-finder.html" class="btn btn-custom">Open</a>
+        </div>
+      </div>
+
+      <!-- LOGOUT CARD (Now properly placed) -->
+      <div class="card card-custom text-center">
+        <img src="/picssssss/logout 2 photo.webp" alt="Logout">
+        <div class="card-body">
+          <h5 class="card-title">Logout</h5>
+          <p class="card-text">Exit your account safely</p>
+          <a href="#" class="btn btn-danger btn-sm" onclick="dologout();">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+</html>
+

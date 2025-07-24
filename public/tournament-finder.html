@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <title>Document</title>
+
+    <style>
+    .align-left-bold-heading {
+  text-align: left;        
+  font-weight: bold;       
+}
+</style>
+
+    <script>
+        var mymodule = angular.module("kuchModule", []);
+
+        mymodule.controller("kuchController", function ($scope, $http) {
+            $scope.jsonArray = [];
+            $scope.selCity;
+            $scope.selGame;
+            $scope.doFetchAll = function () {
+                alert();
+                var url = "/do-fetch-all-tournaments?kuchCity="+$scope.selCity+"&kuchGame="+$scope.selGame;
+
+
+                $http.get(url).then(allGoodFx, someBadFx);
+                function allGoodFx(response) {
+                    //resp in JSON array
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArray = response.data;
+                }
+
+                function someBadFx(response) {
+                    alert(JSON.stringify(response.data));
+                }
+            };
+//---------------------------------------------------------------
+$scope.cities=[{}];
+  $scope.doFetchAlCities = function () {
+                var url = "/do-fetch-all-cities";
+
+                $http.get(url).then(allGoodFx, someBadFx);
+                function allGoodFx(response) {
+                    //resp in JSON array
+                    alert(JSON.stringify(response.data));
+                    $scope.cities = response.data;
+                }
+
+                function someBadFx(response) {
+                    alert(JSON.stringify(response.data));
+                }
+            };
+
+            //==================================================
+            $scope.oneRecord = {};
+            $scope.doShowDetails = function (index) {
+                //alert(JSON.stringify($scope.jsonArray[index]))
+                $scope.oneRecord = $scope.jsonArray[index];
+
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="kuchModule" ng-controller="kuchController" ng-init="doFetchAlCities();">
+    <center>
+        select
+        <hr />
+        <h2>All TOURNAMENTS</h2>
+        <SELECT ng-model="selGame">
+            <option value="">Select</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Football">Football</option>
+        </SELECT>
+        <select ng-model="selCity">
+            <option value="">select</option>
+            <option ng-repeat="obj in cities" value={{obj.city}}>{{obj.city}}</option>
+        </select>
+       <input type="button" value="Find Tournaments" ng-click="doFetchAll();">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3  p-3 mb-2" ng-repeat="obj in jsonArray">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{obj.eventTitle}}
+                            </h5>
+                            <p class="card-text">
+                                {{obj.category}}
+                            </p>
+                            <p class="card-text">
+                                {{obj.city}}
+                            </p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                ng-click="doShowDetails($index);">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ************************** -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">ALL DETAILS</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <p class="align-left-bold-heading">
+                            Emailid : {{oneRecord.emailid}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            EventTitle : {{oneRecord.eventTitle}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Posted Date : {{oneRecord.date}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Time Of Event : {{oneRecord.time}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Location : {{oneRecord.location}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            City : {{oneRecord.city}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Type of sport : {{oneRecord.category}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Minimum Age : {{oneRecord.minAge}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Maximum Age : {{oneRecord.maxAge}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Last Date Of Registration : {{oneRecord.lastDate}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Entry Fees : {{oneRecord.fee}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Prize : {{oneRecord.prize}}
+                        </p>
+                        <p class="align-left-bold-heading">
+                            Contact : {{oneRecord.contact}}
+                        </p>
+            </div>
+        </div>
+
+    </center>
+</body>
+
+</html>
