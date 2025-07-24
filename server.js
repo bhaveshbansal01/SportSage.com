@@ -38,7 +38,6 @@ cloudinary.config({
 //   else
 //     console.log(errKuch.message);
 // });
-const mysql2 = require('mysql2');
 const dbConfig = new URL(process.env.AIVEN_MYSQL_URL);
 
 const mySqlVen = mysql2.createPool({
